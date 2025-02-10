@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         // Read value from control, the type depends on what
         // type of controls the action is bound to
         var inputVal = value.Get<Vector2>();
+        // ismae, si miras este codigo, quiero que sepas que no se puede ir en diagonal, hace cosas raras, un saludo
 
         Vector2 velocity = inputVal * Speed;
         _rigidbody.linearVelocity = velocity;
