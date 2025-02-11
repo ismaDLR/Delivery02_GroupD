@@ -12,7 +12,7 @@ public class VisionGizmo : MonoBehaviour
     public void Start()
     {
         _player = GameObject.FindGameObjectWithTag("Player").transform;
-        VisionRange = GetComponent<Animator>().GetBehaviour<IdleBehaviour>().VisionRange;
+       // VisionRange = GetComponent<Animator>().GetBehaviour<IdleBehaviour>().VisionRange;
     }
 
     private void Update()

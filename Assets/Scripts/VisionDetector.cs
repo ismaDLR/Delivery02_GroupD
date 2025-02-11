@@ -7,25 +7,40 @@ public class VisionDetector : MonoBehaviour
     public LayerMask WhatIsVisible;
     public float DetectionRange;
     public float VisionAngle;
+    public bool isDetected;
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, DetectionRange);
 
         Gizmos.color = Color.yellow;
-        var direction = Quaternion.AngleAxis(VisionAngle/2, transform.forward) 
+        var direction = Quaternion.AngleAxis(VisionAngle / 2, transform.forward)
             * transform.right;
         Gizmos.DrawRay(transform.position, direction * DetectionRange);
-        var direction2 = Quaternion.AngleAxis(-VisionAngle/2, transform.forward) 
+        var direction2 = Quaternion.AngleAxis(-VisionAngle / 2, transform.forward)
             * transform.right;
         Gizmos.DrawRay(transform.position, direction2 * DetectionRange);
 
         Gizmos.color = Color.white;
     }
+   
 
     private void Update()
     {
-        if (DetectPlayers().Length > 0) Debug.Log("Player detected");
+        //if (DetectPlayers().Length > 0) Debug.Log("Player detected");
+
+
+        if (DetectPlayers().Length > 0)
+        {
+            isDetected = true;
+        }
+        else
+        {
+            isDetected = false;
+        }
+
+        
+
     }
 
     private Transform[] DetectPlayers()
@@ -37,6 +52,7 @@ public class VisionDetector : MonoBehaviour
             if (PlayerInAngle(ref players))
             {
                 PlayerIsVisible(ref players);
+
             }
         }
 
@@ -47,6 +63,7 @@ public class VisionDetector : MonoBehaviour
     {
         bool result = false;
         Collider2D[] playerColliders = Physics2D.OverlapCircleAll(transform.position, DetectionRange, WhatIsPlayer);
+        //Debug.Log($"OverlapCircleAll encontró {playerColliders.Length} jugadores.");
 
         if (playerColliders.Length != 0)
         {
@@ -54,6 +71,7 @@ public class VisionDetector : MonoBehaviour
 
             foreach (var item in playerColliders)
             {
+                //Debug.Log($"Jugador detectado: {item.name}, Layer: {item.gameObject.layer}");
                 players.Add(item.transform);
             }
         }
@@ -66,9 +84,13 @@ public class VisionDetector : MonoBehaviour
         for (int i = players.Count - 1; i >= 0; i--)
         {
             var angle = GetAngle(players[i]);
-           
-            if (angle > VisionAngle/2)
+            //Debug.Log($"Jugador: {players[i].name}, Ángulo: {angle}, Límite: {VisionAngle / 2}");
+
+
+            if (angle > VisionAngle / 2)
             {
+                //Debug.Log($"Eliminado por ángulo: {players[i].name}");
+
                 players.Remove(players[i]);
             }
         }
@@ -80,7 +102,7 @@ public class VisionDetector : MonoBehaviour
     {
         Vector2 targetDir = target.position - transform.position;
         float angle = Vector2.Angle(targetDir, transform.right);
-        
+
         return angle;
     }
 
@@ -108,7 +130,10 @@ public class VisionDetector : MonoBehaviour
            DetectionRange,
            WhatIsVisible
         );
+        //Debug.DrawRay(transform.position, dir.normalized * DetectionRange, Color.red, 0.1f);
+        //Debug.Log($"Raycast hacia {target.name}, golpeó: {(hit.collider != null ? hit.collider.name : "Nada")}");
 
         return (hit.collider.transform == target);
     }
 }
+

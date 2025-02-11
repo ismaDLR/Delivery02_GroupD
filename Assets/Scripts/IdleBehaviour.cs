@@ -3,17 +3,23 @@
 public class IdleBehaviour : StateMachineBehaviour
 {
     public float StayTime;
-    public float VisionRange;
+    public VisionDetector VisionDetector;
+
 
     private float _timer;
     private Transform _player;
+   // private float visionRange;
+
 
     // OnStateEnter is called when a transition starts and
     // the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _timer = 0.0f;
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        //_player = GameObject.FindGameObjectWithTag("Player").transform;
+        VisionDetector = GameObject.FindObjectOfType<VisionDetector>();
+        //visionRange = VisionDetector.DetectionRange;
+
     }
 
     // OnStateUpdate is called on each Update frame between
@@ -55,7 +61,7 @@ public class IdleBehaviour : StateMachineBehaviour
 
     private bool IsPlayerClose(Transform transform)
     {
-        var dist = Vector3.Distance(transform.position, _player.position);
-        return (dist < VisionRange);
+            
+        return VisionDetector.isDetected;
     }
 }
