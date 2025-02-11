@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ChaseBehaviour : StateMachineBehaviour
 {
 
     public float Speed = 2;
     public VisionDetector VisionDetector;
-
+    private bool detected;
     private Transform _player;
-    //private float visionRange;
-     
+    private float visionRange;
+
 
 
     // OnStateEnter is called when a transition starts and
@@ -18,7 +19,7 @@ public class ChaseBehaviour : StateMachineBehaviour
         VisionDetector = GameObject.FindObjectOfType<VisionDetector>();
 
         _player = GameObject.FindGameObjectWithTag("Player").transform;
-        //visionRange = VisionDetector.DetectionRange;
+        visionRange = VisionDetector.DetectionRange;
     }
 
     // OnStateUpdate is called on each Update frame between
@@ -26,15 +27,13 @@ public class ChaseBehaviour : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
-        float angle = Mathf.Atan2(_player.position.y, _player.position.x) * Mathf.Rad2Deg;
-        animator.transform.rotation= new Quaternion(0,0, angle,0);
-        // (VisionDetector.isDetected) 
-        //
+
+
         // Check triggers
         var playerClose = IsPlayerClose(animator.transform);
-            animator.SetBool("IsChasing", playerClose);
-        //}
-        
+        animator.SetBool("IsChasing", playerClose);
+
+
 
         // Move to player
         Vector2 dir = _player.position - animator.transform.position;
@@ -43,7 +42,22 @@ public class ChaseBehaviour : StateMachineBehaviour
 
     private bool IsPlayerClose(Transform transform)
     {
-        
-        return VisionDetector.isDetected;
+        bool insideVision = VisionDetector.isDetected; // Si está dentro del cono de visión
+       var dist = Vector3.Distance(transform.position, _player.position);
+
+        if (insideVision)
+        {
+            detected = true; // Detecta al jugador dentro del cono de visión
+        }
+        else if (detected && dist < visionRange)
+        {
+            detected = true; // Si ya estaba detectado, solo sale cuando se aleje del radio completo
+        }
+        else
+        {
+            detected = false; // Si no está en visión y está fuera del radio, se deja de detectar
+        }
+
+        return detected;
     }
 }

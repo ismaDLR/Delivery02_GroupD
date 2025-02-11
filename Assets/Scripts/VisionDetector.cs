@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class VisionDetector : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class VisionDetector : MonoBehaviour
     public float DetectionRange;
     public float VisionAngle;
     public bool isDetected;
+
+
+    private Transform _player;
+
 
     private void OnDrawGizmos()
     {
@@ -23,7 +28,12 @@ public class VisionDetector : MonoBehaviour
 
         Gizmos.color = Color.white;
     }
-   
+
+    private void Start()
+    {
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
+
+    }
 
     private void Update()
     {
@@ -33,6 +43,12 @@ public class VisionDetector : MonoBehaviour
         if (DetectPlayers().Length > 0)
         {
             isDetected = true;
+            //  float angle = Mathf.Atan2(_player.position.y, _player.position.x) * Mathf.Rad2Deg;
+            //  //animator.transform.rotation= new Quaternion(0,0, angle,0);
+            //  
+            //  float rotationSpeed = 5f; // Velocidad de rotación.
+            //  Quaternion targetRotation = new Quaternion(0, 0, angle,0);
+            //  transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
         else
         {
@@ -51,6 +67,7 @@ public class VisionDetector : MonoBehaviour
         {
             if (PlayerInAngle(ref players))
             {
+                if (players!=null)
                 PlayerIsVisible(ref players);
 
             }
