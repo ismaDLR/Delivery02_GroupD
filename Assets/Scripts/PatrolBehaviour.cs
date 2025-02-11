@@ -10,13 +10,15 @@ public class PatrolBehaviour : StateMachineBehaviour
 
 
     private float _timer;
-    //private float visionRange;
+    private float visionRange;
     private Transform _player;
     private Vector2 _target;
     private Vector2 _startPos;
     private PatrolTargets PatrolTargets;
     private int numTarget = 0;
     private Vector2 position;
+    private bool detected;
+
 
 
     // OnStateEnter is called when a transition starts and
@@ -25,7 +27,7 @@ public class PatrolBehaviour : StateMachineBehaviour
     {
         VisionDetector = GameObject.FindObjectOfType<VisionDetector>();
         PatrolTargets = GameObject.FindObjectOfType<PatrolTargets>();
-        //visionRange = VisionDetector.DetectionRange;
+        visionRange = VisionDetector.DetectionRange;
         _timer = 0.0f;
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _startPos = new Vector2(animator.transform.position.x, animator.transform.position.y);
@@ -90,10 +92,23 @@ public class PatrolBehaviour : StateMachineBehaviour
 
     private bool IsPlayerClose(Transform transform)
     {
-        // var dist = Vector3.Distance(transform.position, _player.position);
-        // return (dist < visionRange);
-        //Debug.Log(VisionDetector.isDetected);
-        return VisionDetector.isDetected;
+        bool insideVision = VisionDetector.isDetected; // Si está dentro del cono de visión
+        var dist = Vector3.Distance(transform.position, _player.position);
+
+        if (insideVision)
+        {
+            detected = true; // Detecta al jugador dentro del cono de visión
+        }
+        else if (detected && dist < visionRange)
+        {
+            detected = true; // Si ya estaba detectado, solo sale cuando se aleje del radio completo
+        }
+        else
+        {
+            detected = false; // Si no está en visión y está fuera del radio, se deja de detectar
+        }
+
+        return detected;
     }
     private bool EdgeDetected()
     {

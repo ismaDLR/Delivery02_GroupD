@@ -8,7 +8,8 @@ public class IdleBehaviour : StateMachineBehaviour
 
     private float _timer;
     private Transform _player;
-   // private float visionRange;
+    private bool detected;
+    private float visionRange;
 
 
     // OnStateEnter is called when a transition starts and
@@ -16,9 +17,9 @@ public class IdleBehaviour : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         _timer = 0.0f;
-        //_player = GameObject.FindGameObjectWithTag("Player").transform;
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
         VisionDetector = GameObject.FindObjectOfType<VisionDetector>();
-        //visionRange = VisionDetector.DetectionRange;
+        visionRange = VisionDetector.DetectionRange;
 
     }
 
@@ -61,7 +62,22 @@ public class IdleBehaviour : StateMachineBehaviour
 
     private bool IsPlayerClose(Transform transform)
     {
-            
-        return VisionDetector.isDetected;
+        bool insideVision = VisionDetector.isDetected; // Si está dentro del cono de visión
+        var dist = Vector3.Distance(transform.position, _player.position);
+
+        if (insideVision)
+        {
+            detected = true; // Detecta al jugador dentro del cono de visión
+        }
+        else if (detected && dist < visionRange)
+        {
+            detected = true; // Si ya estaba detectado, solo sale cuando se aleje del radio completo
+        }
+        else
+        {
+            detected = false; // Si no está en visión y está fuera del radio, se deja de detectar
+        }
+
+        return detected;
     }
 }
