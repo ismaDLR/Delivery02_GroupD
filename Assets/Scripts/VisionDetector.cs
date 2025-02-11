@@ -38,7 +38,7 @@ public class VisionDetector : MonoBehaviour
     private void Update()
     {
         //if (DetectPlayers().Length > 0) Debug.Log("Player detected");
-
+       
 
         if (DetectPlayers().Length > 0)
         {
@@ -67,8 +67,10 @@ public class VisionDetector : MonoBehaviour
         {
             if (PlayerInAngle(ref players))
             {
-                if (players!=null)
+                
+
                 PlayerIsVisible(ref players);
+                
 
             }
         }
