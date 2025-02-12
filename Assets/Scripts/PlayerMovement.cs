@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private float Speed = 5.0f;
     private Vector3 initialPosition;
     private float distance = 0f;
-    
+
 
     private bool _isMoving;
     Rigidbody2D _rigidbody;
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         initialPosition = transform.position;
     }
-  
+
 
     public void OnMove(InputValue value)
     {
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
         _rigidbody.linearVelocity = velocity;
         _rigidbody.freezeRotation = true;
 
-       
+
 
         _isMoving = (velocity.magnitude > 0.01f);
 
@@ -69,4 +69,25 @@ public class PlayerMovement : MonoBehaviour
         transform.Rotate(0, 0, -angle);
     }
 
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Finish")
+        {
+            var fileName = "bestScoreTime.txt";
+
+            if (File.Exists(fileName))
+            {
+                var sr = File.OpenText(fileName);
+            }
+            else
+            {
+                var sr = File.CreateText(fileName);
+                sr.WriteLine("Tiempo");
+                sr.Close();
+            }
+
+            SceneManager.LoadScene("Ending");
+        }
+    }
 }
