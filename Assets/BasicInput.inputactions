@@ -175,6 +175,54 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Camara",
+            "id": "8660cf9b-bd87-4a60-a3e6-9f8e5ca8908b",
+            "actions": [
+                {
+                    "name": "PressEnter",
+                    "type": "Button",
+                    "id": "6d8cfff3-5b55-474f-b558-0842e7b599e7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PressEscape",
+                    "type": "Button",
+                    "id": "35413a9f-faf2-400e-bf7b-51464772fd69",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "7e780887-dd0c-4a5c-9223-95b62e868240",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressEnter",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4f99bec0-dd70-44ee-bd95-5f6f999617e3",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Press(behavior=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressEscape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
