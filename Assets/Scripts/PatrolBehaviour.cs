@@ -9,8 +9,6 @@ public class PatrolBehaviour : StateMachineBehaviour
     public float Speed;
     public VisionDetector VisionDetector;
 
-
-
     private float _timer;
     private float visionRange;
     private Transform _player;
@@ -20,10 +18,6 @@ public class PatrolBehaviour : StateMachineBehaviour
     private Vector3 position;
     private bool detected;
 
-
-
-    // OnStateEnter is called when a transition starts and
-    // the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         VisionDetector = GameObject.FindObjectOfType<VisionDetector>();
@@ -33,62 +27,35 @@ public class PatrolBehaviour : StateMachineBehaviour
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         position = PatrolTargets._targets[numTarget].transform.position;
         _target = position;
-        //_target = new Vector2(_startPos.x + Random.Range(-1f, 1f)*4, _startPos.y + Random.Range(-1f, 1f)*4);
         
         OnEnterState?.Invoke();
         animator.transform.Rotate(0, 180, 0);
     }
 
-    // OnStateUpdate is called on each Update frame between
-    // OnStateEnter and OnStateExit callbacks
+
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Check triggers
-
-
-        
-
         var playerClose = IsPlayerClose(animator.transform);
         var timeUp = IsTimeUp();
-
-        
         
         animator.SetBool("IsChasing", playerClose);
         animator.SetBool("IsPatroling", !timeUp);
-        //if (animator.transform.position.x == position.x && animator.transform.position.x == position.x)
+
         if ((int)animator.transform.position.x == (int)position.x)
         {
-            //Debug.Log(numTarget);
             if (numTarget < PatrolTargets._targets.Length - 1)
             {
                 numTarget++;
-                if (EdgeDetected())
-                {
-                    //animator.transform.Rotate(0, 180, 0);
-                    //animator.transform.localScale = new Vector3(-5, 5, 5);
-                }
-                
                 position = PatrolTargets._targets[numTarget].transform.position;
-                //animator.transform.Rotate(0, 180, 0);
             }
             else
             {
                 numTarget = 0;
-                if (EdgeDetected())
-                {
-                    //Debug.Log("fsajfhiusdhfois");
-                    //animator.transform.Rotate(0, 180, 0);
-                    //animator.transform.localScale = new Vector3(5, 5, 5);
-                }
                 position = PatrolTargets._targets[numTarget].transform.position;
-                //animator.transform.Rotate(0, 180, 0);
-
             }
         }
         // Move
-        //animator.transform.position = Vector2.Lerp(_startPos, _target, (_timer / StayTime) );
         Vector2 dir = _target - animator.transform.position;
-        
         animator.transform.position += (Vector3) dir.normalized * 0.5f * Time.deltaTime;
     }
 
@@ -100,30 +67,22 @@ public class PatrolBehaviour : StateMachineBehaviour
 
     private bool IsPlayerClose(Transform transform)
     {
-        bool insideVision = VisionDetector.isDetected; // Si está dentro del cono de visión
+        bool insideVision = VisionDetector.isDetected;
         var dist = Vector3.Distance(transform.position, _player.position);
 
         if (insideVision)
         {
-            detected = true; // Detecta al jugador dentro del cono de visión
+            detected = true;
         }
         else if (detected && dist < visionRange)
         {
-            detected = true; // Si ya estaba detectado, solo sale cuando se aleje del radio completo
+            detected = true;
         }
         else
         {
-            detected = false; // Si no está en visión y está fuera del radio, se deja de detectar
+            detected = false;
         }
 
         return detected;
     }
-    private bool EdgeDetected()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(PatrolTargets.EdgeDetection.position, Vector2.one, 1.5f, PatrolTargets.IsPosition);
-    
-        return (hit.collider != null);
-    }
-
-
 }

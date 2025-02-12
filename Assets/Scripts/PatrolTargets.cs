@@ -6,5 +6,4 @@ public class PatrolTargets : MonoBehaviour
     public Transform EdgeDetection;
     public LayerMask IsPosition;
     public float Speed;
-
 }

@@ -10,14 +10,12 @@ public class Timer : MonoBehaviour
 
     private const int timeToChangeTextSeconds = 10;
     private const int timeToChangeTextMinutes = 60;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         seconds = 0;
         minutes = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         seconds += Time.deltaTime;

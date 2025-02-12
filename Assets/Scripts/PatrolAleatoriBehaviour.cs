@@ -8,13 +8,9 @@ public class PatrolAleatoriBehaviour : StateMachineBehaviour
 
     private float _timer;
     private Transform _player;
-    private Vector2 _target;
+    private Vector3 _target;
     private Vector2 _startPos;
     private bool detected = false;
-
-
-    // OnStateEnter is called when a transition starts and
-    // the state machine starts to evaluate this state
     
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -23,10 +19,8 @@ public class PatrolAleatoriBehaviour : StateMachineBehaviour
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _startPos = new Vector2(animator.transform.position.x, animator.transform.position.y);
 
-        // Obtener la posición de la cámara
         Vector3 camPosition = Camera.main.transform.position;
 
-        // Calcular los límites visibles en coordenadas del mundo
         float camHeight = Camera.main.orthographicSize * 2f;
         float camWidth = camHeight * Camera.main.aspect;
 
@@ -35,19 +29,14 @@ public class PatrolAleatoriBehaviour : StateMachineBehaviour
         float minY = camPosition.y - camHeight / 2f;
         float maxY = camPosition.y + camHeight / 2f;
 
-        // Generar una posición aleatoria dentro de los límites
         float targetX = Random.Range(minX, maxX);
         float targetY = Random.Range(minY, maxY);
 
-        _target = new Vector2(targetX, targetY);
-
+        _target = new Vector3(targetX, targetY, 0);
     }
 
-    // OnStateUpdate is called on each Update frame between
-    // OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        // Check triggers
         var playerClose = IsPlayerClose(animator.transform);
         var timeUp = IsTimeUp();
 
@@ -55,12 +44,14 @@ public class PatrolAleatoriBehaviour : StateMachineBehaviour
         animator.SetBool("IsPatroling", !timeUp);
 
         // Move
-        animator.transform.position = Vector2.Lerp(_startPos, _target, _timer / StayTime);
+        Vector2 dir = _target - animator.transform.position;
+
+        animator.transform.position += (Vector3)dir.normalized * 0.5f * Time.deltaTime;
     }
 
     private bool IsTimeUp()
     {
-        _timer += Time.deltaTime;
+        _timer += Time.deltaTime * 0.5f;
         return (_timer > StayTime);
     }
 

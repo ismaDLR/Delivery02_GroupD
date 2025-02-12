@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 1
-  VisionRange: 2
+  VisionRange: 0.5
   VisionDetector: {fileID: 0}
 --- !u!114 &-5431294353358635467
 MonoBehaviour:
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StayTime: 1
-  VisionRange: 2
+  VisionRange: 0.5
   VisionDetector: {fileID: 0}
 --- !u!1101 &-4941756860980181407
 AnimatorStateTransition:
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   VisionDetector: {fileID: 0}
   StayTime: 1
-  VisionRange: 2
+  VisionRange: 0.5
 --- !u!1102 &5434194316394775534
 AnimatorState:
   serializedVersion: 6

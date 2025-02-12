@@ -3,8 +3,6 @@ using UnityEngine.UI;
 
 public class UIDistance : MonoBehaviour
 {
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void OnEnable()
     {
         PlayerMovement.OnPlayerMove += SetDistance;
@@ -20,5 +18,4 @@ public class UIDistance : MonoBehaviour
         int scoreValue = int.Parse(gameObject.GetComponent<Text>().text) + value;
         gameObject.GetComponent<Text>().text = scoreValue.ToString();
     }
-
 }

@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class UIScore : MonoBehaviour
 {
-    
     private void OnEnable()
     {
         Coin.OnTriggerPlayer += SetScore;
