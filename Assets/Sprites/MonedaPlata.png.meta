@@ -284,7 +284,14 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MonedaPlata_0: 4350201260140128048
+      MonedaPlata_1: -6609268243062667801
+      MonedaPlata_2: 6642269640675731064
+      MonedaPlata_3: -4617053635600298734
+      MonedaPlata_4: -3682396400644676332
+      MonedaPlata_5: -7740236675779230767
+      MonedaPlata_6: 583538342890078234
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
