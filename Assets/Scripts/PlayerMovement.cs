@@ -7,19 +7,24 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public bool IsMoving => _isMoving;
-
     [SerializeField]
     private float Speed = 5.0f;
+    private Vector3 initialPosition;
+    private float distance = 0f;
+    
 
     private bool _isMoving;
     Rigidbody2D _rigidbody;
 
     private int score = 2000;
+    public static Action<int> OnPlayerMove;
 
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        initialPosition = transform.position;
     }
+  
 
     public void OnMove(InputValue value)
     {
@@ -38,6 +43,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (_isMoving) LookAt((Vector2)transform.position + velocity);
         else transform.rotation = Quaternion.identity;
+
+
+        distance += Vector3.Distance(transform.position, initialPosition);
+        initialPosition = transform.position;
+
+        OnPlayerMove?.Invoke((int)distance);
 
 
     }
