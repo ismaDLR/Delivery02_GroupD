@@ -1,8 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class PatrolBehaviour : StateMachineBehaviour
 {
+    public static Action OnEnterState;
     public float StayTime;
     public float Speed;
     public VisionDetector VisionDetector;
@@ -34,6 +36,7 @@ public class PatrolBehaviour : StateMachineBehaviour
         position = PatrolTargets._targets[numTarget].transform.position;
         _target = position;
         //_target = new Vector2(_startPos.x + Random.Range(-1f, 1f)*4, _startPos.y + Random.Range(-1f, 1f)*4);
+        OnEnterState?.Invoke();
     }
 
     // OnStateUpdate is called on each Update frame between

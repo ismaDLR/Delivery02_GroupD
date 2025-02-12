@@ -1,16 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class ChaseBehaviour : StateMachineBehaviour
 {
-
+    public static Action<Transform> OnDetectPlayer;
     public float Speed = 2;
     public VisionDetector VisionDetector;
     private bool detected;
     private Transform _player;
     private float visionRange;
-
-
 
     // OnStateEnter is called when a transition starts and
     // the state machine starts to evaluate this state
@@ -37,13 +36,15 @@ public class ChaseBehaviour : StateMachineBehaviour
 
         // Move to player
         Vector2 dir = _player.position - animator.transform.position;
-        animator.transform.position += (Vector3)dir.normalized * Speed * Time.deltaTime;
+        animator.transform.position += (Vector3) dir.normalized * Speed * Time.deltaTime;
+
+        OnDetectPlayer?.Invoke(_player);
     }
 
     private bool IsPlayerClose(Transform transform)
     {
         bool insideVision = VisionDetector.isDetected; // Si está dentro del cono de visión
-       var dist = Vector3.Distance(transform.position, _player.position);
+        var dist = Vector3.Distance(transform.position, _player.position);
 
         if (insideVision)
         {

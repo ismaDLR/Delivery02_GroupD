@@ -67,11 +67,7 @@ public class VisionDetector : MonoBehaviour
         {
             if (PlayerInAngle(ref players))
             {
-                
-
                 PlayerIsVisible(ref players);
-                
-
             }
         }
 
@@ -151,8 +147,12 @@ public class VisionDetector : MonoBehaviour
         );
         //Debug.DrawRay(transform.position, dir.normalized * DetectionRange, Color.red, 0.1f);
         //Debug.Log($"Raycast hacia {target.name}, golpeó: {(hit.collider != null ? hit.collider.name : "Nada")}");
+        if (hit.collider != null)
+        {
+            return (hit.collider.transform == target);
+        }
 
-        return (hit.collider.transform == target);
+        return false;
     }
 }
 
