@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4029048668011341214}
   - component: {fileID: 3344436405557889035}
   - component: {fileID: 1213528624068208907}
-  - component: {fileID: 4812692289503149985}
   - component: {fileID: 6011013409478181198}
   m_Layer: 8
   m_Name: Player
@@ -143,43 +142,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
---- !u!70 &4812692289503149985
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 414679075356885572}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: -0.0069999695, y: 0.015969992}
-  m_Size: {x: 0.55670834, y: 0.89482903}
-  m_Direction: 0
 --- !u!212 &6011013409478181198
 SpriteRenderer:
   m_ObjectHideFlags: 0

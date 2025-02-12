@@ -30,11 +30,16 @@ public class PlayerMovement : MonoBehaviour
 
         Vector2 velocity = inputVal * Speed;
         _rigidbody.linearVelocity = velocity;
+        _rigidbody.freezeRotation = true;
+
+       
 
         _isMoving = (velocity.magnitude > 0.01f);
 
         if (_isMoving) LookAt((Vector2)transform.position + velocity);
         else transform.rotation = Quaternion.identity;
+
+
     }
 
     // NOTE: InputSystem: "SaveScore" action becomes "OnSaveScore" method
@@ -52,4 +57,5 @@ public class PlayerMovement : MonoBehaviour
         angle = Mathf.Atan2(relative.x, relative.y) * Mathf.Rad2Deg;
         transform.Rotate(0, 0, -angle);
     }
+
 }
