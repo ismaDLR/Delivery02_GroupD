@@ -22,8 +22,6 @@ to complete the level.
 ### Screenshots
 
 ![$(Carlos el ladron)](Screenshots/screenshot02.png "$(Carlos el ladron)")
-![$(Carlos el ladron)](Screenshots/screenshot03.png "$(Carlos el ladron)")
-![$(Carlos el ladron)](Screenshots/screenshot04.png "$(Carlos el ladron)")
 
 ### Developers
 
@@ -37,5 +35,5 @@ to complete the level.
 This game sources are licensed under MIT license. Check [LICENSE](LICENSE) for further details.
 
 Licenses of the sprites used
-- Scenari 
+- Scenari https://kenney.nl/assets/tiny-dungeon
 - Audio https://gamesounds.xyz/ Year: 31-07-2015 Developer: KenneyNL
