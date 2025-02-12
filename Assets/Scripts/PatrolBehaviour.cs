@@ -14,11 +14,11 @@ public class PatrolBehaviour : StateMachineBehaviour
     private float _timer;
     private float visionRange;
     private Transform _player;
-    private Vector3 _target;
+    private Vector2 _target;
     private Vector2 _startPos;
     private PatrolTargets PatrolTargets;
     private int numTarget = 0;
-    private Vector3 position;
+    private Vector2 position;
     private bool detected;
 
 
@@ -37,7 +37,6 @@ public class PatrolBehaviour : StateMachineBehaviour
         _target = position;
         //_target = new Vector2(_startPos.x + Random.Range(-1f, 1f)*4, _startPos.y + Random.Range(-1f, 1f)*4);
         OnEnterState?.Invoke();
-        animator.transform.Rotate(0, 180, 0);
     }
 
     // OnStateUpdate is called on each Update frame between
@@ -56,21 +55,18 @@ public class PatrolBehaviour : StateMachineBehaviour
         
         animator.SetBool("IsChasing", playerClose);
         animator.SetBool("IsPatroling", !timeUp);
-        //if (animator.transform.position.x == position.x && animator.transform.position.x == position.x)
-        if ((int)animator.transform.position.x == (int)position.x)
+        if (animator.transform.position.x == position.x && animator.transform.position.x == position.x)
         {
-            //Debug.Log(numTarget);
             if (numTarget < PatrolTargets._targets.Length - 1)
             {
                 numTarget++;
                 if (EdgeDetected())
                 {
-                    //animator.transform.Rotate(0, 180, 0);
+
+                    animator.transform.Rotate(0, 180, 0);
                     //animator.transform.localScale = new Vector3(-5, 5, 5);
                 }
-                
                 position = PatrolTargets._targets[numTarget].transform.position;
-                //animator.transform.Rotate(0, 180, 0);
             }
             else
             {
@@ -78,19 +74,16 @@ public class PatrolBehaviour : StateMachineBehaviour
                 if (EdgeDetected())
                 {
                     //Debug.Log("fsajfhiusdhfois");
-                    //animator.transform.Rotate(0, 180, 0);
+                    animator.transform.Rotate(0, 180, 0);
                     //animator.transform.localScale = new Vector3(5, 5, 5);
                 }
                 position = PatrolTargets._targets[numTarget].transform.position;
-                //animator.transform.Rotate(0, 180, 0);
 
             }
         }
         // Move
-        //animator.transform.position = Vector2.Lerp(_startPos, _target, (_timer / StayTime) );
-        Vector2 dir = _target - animator.transform.position;
-        
-        animator.transform.position += (Vector3) dir.normalized * 0.5f * Time.deltaTime;
+        animator.transform.position = Vector2.Lerp(_startPos, _target, (_timer / StayTime) );
+       
     }
 
     private bool IsTimeUp()
