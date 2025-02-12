@@ -15,7 +15,6 @@ public class PatrolBehaviour : StateMachineBehaviour
     private float visionRange;
     private Transform _player;
     private Vector3 _target;
-    private Vector2 _startPos;
     private PatrolTargets PatrolTargets;
     private int numTarget = 0;
     private Vector3 position;
@@ -32,10 +31,10 @@ public class PatrolBehaviour : StateMachineBehaviour
         visionRange = VisionDetector.DetectionRange;
         _timer = 0.0f;
         _player = GameObject.FindGameObjectWithTag("Player").transform;
-        _startPos = new Vector2(animator.transform.position.x, animator.transform.position.y);
         position = PatrolTargets._targets[numTarget].transform.position;
         _target = position;
         //_target = new Vector2(_startPos.x + Random.Range(-1f, 1f)*4, _startPos.y + Random.Range(-1f, 1f)*4);
+        
         OnEnterState?.Invoke();
         animator.transform.Rotate(0, 180, 0);
     }
