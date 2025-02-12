@@ -26,7 +26,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6f798a9f6542f04492272194634a97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
+  Speed: 0.5
   VisionDetector: {fileID: 0}
 --- !u!114 &-6698119678891243294
 MonoBehaviour:

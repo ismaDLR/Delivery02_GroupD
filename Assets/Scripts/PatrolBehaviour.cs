@@ -84,7 +84,6 @@ public class PatrolBehaviour : StateMachineBehaviour
         // Move
         animator.transform.position = Vector2.Lerp(_startPos, _target, (_timer / StayTime) );
        
-       
     }
 
     private bool IsTimeUp()
