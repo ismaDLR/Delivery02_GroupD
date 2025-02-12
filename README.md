@@ -21,20 +21,21 @@ to complete the level.
 
 ### Screenshots
 
-![$(Carlos el explorador)](Screenshots/screenshot02.png "$(Carlos el ladron)")
-![$(Carlos el explorador)](Screenshots/screenshot03.png "$(Carlos el ladron)")
-![$(Carlos el explorador)](Screenshots/screenshot04.png "$(Carlos el ladron)")
+![$(Carlos el ladron)](Screenshots/screenshot02.png "$(Carlos el ladron)")
+![$(Carlos el ladron)](Screenshots/screenshot03.png "$(Carlos el ladron)")
+![$(Carlos el ladron)](Screenshots/screenshot04.png "$(Carlos el ladron)")
 
 ### Developers
 
- - Ismael de los Reyes - 
- - Moises de Paco - 
- - Antonio Manzano - 
- - Xavier Garcia - 
+ - Ismael de los Reyes - Level designer
+ - Moises de Paco - Programer
+ - Antonio Manzano - UI and sound
+ - Xavier Garcia - UI designer
 
 ### License
 
 This game sources are licensed under MIT license. Check [LICENSE](LICENSE) for further details.
 
 Licenses of the sprites used
-- 
+- Scenari 
+- Audio https://gamesounds.xyz/ Year: 31-07-2015 Developer: KenneyNL
